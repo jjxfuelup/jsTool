@@ -334,7 +334,8 @@ function base64decode(str,type=1) { /* base64 解码回原来的元数据*/
  				out.push(d1);  /* base64解码 */
  			}
  			  /* return out; */
- 			  return new ArrayBuffer(out);
+			  /* return getArrayBuffer(out); */
+ 			  return new Int8Array(out);
  		}
    	    c3 = base64DecodeChars[c3];
    	} while(i < len && c3 == -1);
@@ -353,7 +354,8 @@ function base64decode(str,type=1) { /* base64 解码回原来的元数据*/
  				out.push(d1,d2);  /* base64解码 */
  			}
  			   /* return out; */
- 			  return new ArrayBuffer(out);
+			   /* return getArrayBuffer(out); */
+ 			  return new Int8Array(out);
  		}
    	    c4 = base64DecodeChars[c4];
    	} while(i < len && c4 == -1);
@@ -370,5 +372,12 @@ function base64decode(str,type=1) { /* base64 解码回原来的元数据*/
    			}
        }
   /* return out; */
- 	  return new ArrayBuffer(out);
+  /* return getArrayBuffer(out); */
+ 	  return new Int8Array(out);
+}
+function getArrayBuffer(out){  //输入数值在256以内的数组，转化为相应的ArrayBuffer；
+	let buffer = new ArrayBuffer(out.length),
+		   arr = new Int8Array(buffer);
+	for(let len=arr.length,i=0;i<len;i++)  arr[i]=out[i];
+	return buffer;
 }
